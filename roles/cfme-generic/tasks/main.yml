@@ -1,0 +1,69 @@
+---
+
+- name: CFME | generic | copy over our configuration rake file
+  copy:
+    src: config.rake
+    dest: /var/www/miq/vmdb/lib/tasks/config.rake
+  tags:
+    - generic
+
+- name: CFME | generic | create zones
+  shell: "rake config:create_zone NAME={{ item.zone_name }} DESCRIPTION={{ item.zone_description }}"
+  args:
+    chdir: /var/www/miq/vmdb
+  with_items: "{{ cfme_zones }}"
+  tags:
+    - generic
+
+- name: CFME | generic | set internal admin password
+  shell: source /root/.bashrc && rails r "User.find_by_userid('admin').update_attributes(:password => '{{ cfme_admin_pass }}')"
+  args:
+    chdir: /var/www/miq/vmdb
+  tags: 
+    - generic
+
+- name: CFME | generic | set ems attributes
+  manageiq_config:
+    name: ems 
+    value:
+      name: "{{ inventory_hostname }}"
+      custom_support_url: "{{ cfme_support_url }}"
+  notify: restart evmserverd
+  tags:
+    - generic 
+
+- name: CFME | generic | set server attributes
+  manageiq_config:
+    name: server 
+    value:
+      name: "{{ inventory_hostname }}"
+      company: "{{ cfme_company }}"
+      zone: "{{ cfme_zone }}"
+      timezone: Melbourne
+      use_custom_login_text: true
+      custom_login_text: "{{ cfme_login_text }}"
+  notify: restart evmserverd 
+  tags: 
+    - generic
+
+- name: CFME | generic | set mail attributes
+  manageiq_config:
+    name: smtp
+    value:
+      from: "{{ cfme_from_addr }}" 
+      host: "{{ cfme_mail_host }}"
+      port: "{{ cfme_mail_port }}"
+      domain: "{{ cfme_mail_domain }}"
+  tags:
+    - generic
+    - mail
+
+- name: CFME | generic | set appliance roles
+  shell: "rake config:set_roles SERVER_ROLES='[{{ cfme_roles }}]'"
+  args:
+    chdir: /var/www/miq/vmdb
+  notify: restart evmserverd
+  tags:
+    - generic
+    - roles
+

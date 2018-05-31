@@ -1,0 +1,10 @@
+[cfme_vmdb_pri]
+cfme-vmdb-pri ansible_host= cfme_roles="{{ cfme_db_roles }}" cfme_zone=default
+
+[cfme_vmdb_sec]
+cfme-vmdb-sec ansible_host= cfme_roles="{{ cfme_db_roles }}" cfme_zone=default 
+
+[cfme_app]
+cfme-node1 ansible_host= cfme_roles="{{ cfme_app_roles }}" cfme_zone=my_zone
+cfme-node2 ansible_host= cfme_roles="{{ cfme_app_roles }}" cfme_zone=my_zone
+cfme-node3 ansible_host= cfme_roles="{{ cfme_app_roles }}" cfme_zone=my_zone

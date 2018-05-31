@@ -1,0 +1,9 @@
+---
+# Cloudforms
+vault_cfme_db_pass: 'smartvm'
+vault_cfme_admin_pass: 'smartvm'
+vault_cfme_root_pass: 'smartvm'
+
+# AWS Provider Credentials
+vault_aws_access_key_id: ''
+vault_aws_secret_access_key: ''

@@ -1,0 +1,21 @@
+---
+
+- name: CFME | services | create service catalog
+  uri:
+    url: "https://{{ hostvars[groups['cfme_app'][0]]['ansible_eth0']['ipv4']['address'] }}/api/service_catalogs"
+    user: admin
+    password: "{{ cfme_admin_pass }}" 
+    force_basic_auth: yes
+    validate_certs: false
+    status_code: 200,201,202,203,204,400 
+    body_format: json
+    method: "POST"
+    body:
+      '{
+         "name":"{{ item.name }}"
+       }'
+  register: uri_result 
+  changed_when: uri_result.status == 201
+  with_items: "{{ cfme_service_catalogs }}"
+  tags:
+   - services

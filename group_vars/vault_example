@@ -1,0 +1,39 @@
+---
+
+# Satellite
+
+vault_sat6_pass: password 
+vault_rhn_pass: password 
+vault_rhn_user: username@example.com 
+
+# Capsule
+
+vault_oauth_consumer_key: 'xxx'
+vault_oauth_consumer_secret: 'yyy'
+vault_oauth_secret: 'zzz'
+
+# Ansible Tower
+
+vault_tower_pass: password
+vault_tower_lic: {"eula_accepted" : "true",
+    "company_name": "", 
+    "contact_email": "", 
+    "contact_name": "", 
+    "hostname": "", 
+    "instance_count": , 
+    "license_date": , 
+    "license_key": "", 
+    "license_type": "", 
+    "subscription_name": "", 
+    "trial": 
+   }
+
+# Cloudforms
+
+vault_cfme_db_pass: 'xxx'
+vault_cfme_admin_pass: 'yyy'
+vault_cfme_root_pass: 'zzz'
+
+# AWS Provider Credentials
+vault_aws_access_key_id: 'xxx'
+vault_aws_secret_access_key: 'yyy'

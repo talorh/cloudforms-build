@@ -1,0 +1,42 @@
+---
+
+# OS
+cfme_root_pass: "{{ vault_cfme_root_pass }}"
+
+# Database
+cfme_db_user: root
+cfme_db_pass: "{{ vault_cfme_db_pass }}"
+cfme_pri_db_id: 100
+cfme_sec_db_id: 200
+cfme_region: 99
+
+# Zones:
+
+cfme_zones:
+  - { zone_name: app_zone, zone_description: app_zone }
+
+# General
+cfme_admin_pass: "{{ vault_cfme_admin_pass }}"
+cfme_company: 'Talor Lab'
+cfme_support_url: 'www.redhat.com'
+cfme_login_text: 'Welcome to the Cloudforms Magic'
+cfme_from_addr: cloudforms@lab
+cfme_mail_host: mail.lab
+cfme_mail_port: 25
+cfme_mail_domain: lab 
+
+# Appliance Roles
+
+cfme_db_roles: '"database_owner", "database_operations"'
+cfme_app_roles: '"automate", "ems_metrics_coordinator", "ems_metrics_collector", "ems_metrics_processor", "event", "git_owner", "notifier", "ems_inventory", "ems_operations", "reporting", "scheduler", "smartproxy", "smartstate", "user_interface", "web_services", "websocket"'
+
+# Providers
+
+aws_providers:
+  - { provider_name: 'talorawstest', provider_access_key: "{{ vault_aws_access_key_id }}", provider_secret_key: "{{ vault_aws_secret_access_key }}", provider_region: 'ap-southeast-1', zone: 'app_zone' }
+  - { provider_name: 'talorawsprod', provider_access_key: "{{ vault_aws_access_key_id }}", provider_secret_key: "{{ vault_aws_secret_access_key }}", provider_region: 'ap-southeast-2', zone: 'app_zone' }
+
+# Services
+
+cfme_service_catalogs:
+  - { name: 'talor_test' }

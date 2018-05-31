@@ -1,0 +1,24 @@
+---
+
+- name: CFME | providers | Add Amazon EC2 Provider
+  manageiq_provider:
+    name: "{{ item.provider_name }}" 
+    type: 'Amazon'
+    state: 'present'
+    provider_region: "{{ item.provider_region }}"
+    provider:
+      hostname: aws.amazon.com
+      userid: "{{ item.provider_access_key }}"
+      password: "{{ item.provider_secret_key }}"
+    manageiq_connection:
+      url: "https://{{ hostvars[groups['cfme_app'][0]]['ansible_eth0']['ipv4']['address'] }}"
+      username: 'admin'
+      password: "{{ cfme_admin_pass }}" 
+      verify_ssl: false
+    zone: "{{ item.zone }}"
+  delegate_to: localhost
+  no_log: true
+  with_items: "{{ aws_providers }}"
+  tags:
+   - providers
+   - aws
